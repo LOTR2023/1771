@@ -3,6 +3,7 @@ INCL_PATH_WIN = -Isrc
 
 CFLAGS = -std=c++17 -I$(VULKAN_SDK_PATH)/include/vulkan
 LDFLAGS = -L$(VULKAN_SDK_PATH)/lib/x86_64-linux-gnu `pkg-config --static --libs glfw3` -lvulkan
+SOURCES = main.cpp src/rndr/initvulkan.cpp src/rndr/vulkan.cpp src/wndw/initwin.cpp
 
 1771_n: main.cpp
 	g++ -g $(CFLAGS) $(INCL_PATH_WIN) -o /bin/1771_n main.cpp $(LDFLAGS)
