@@ -13,5 +13,3 @@ test: 1771_n
 	LD_LIBRARY_PATH=$(VULKAN_SDK_PATH)/lib/x86_64-linux-gnu VK_LAYER_PATH=$(VULKAN_SDK_PATH)/share/vulkan/explicit_layer.d 1771_n
 clean:
 	rm -f /bin/1771_n
-test: 1771_n
-    LD_LIBRARY_PATH=$(VULKAN_SDK_PATH)/lib 1771_n
