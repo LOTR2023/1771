@@ -2,13 +2,13 @@
 #include <GLFW/glfw3.h>
 
 #define VK_INIT_WIN
-#include "src/wndw/initwin.hpp"
+#include "wndw/initwin.hpp"
 
 #define VK_INIT_VK
-#include "src/rndr/initvulkan.hpp"
+#include "rndr/initvulkan.hpp"
 
 #define VK_VK
-#include "src/rndr/vulkan.hpp"
+#include "rndr/vulkan.hpp"
 
 #include <iostream>
 
