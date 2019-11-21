@@ -1,5 +1,5 @@
 VULKAN_SDK_PATH = /usr
-INCL_PATH_WIN = -Isrc/rndr -Isrc/wndw
+INCL_PATH_WIN = -Isrc
 
 CFLAGS = -std=c++17 -I$(VULKAN_SDK_PATH)/include/vulkan
 LDFLAGS = -L$(VULKAN_SDK_PATH)/lib/x86_64-linux-gnu `pkg-config --static --libs glfw3` -lvulkan
