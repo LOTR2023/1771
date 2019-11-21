@@ -1,3 +1,6 @@
+#define GLFW_INCLUDE_VULKAN
+#include <GLFW/glfw3.h>
+
 static const int resX = 1280, resY = 720;
 
 void initWindow(char* windowName) {
