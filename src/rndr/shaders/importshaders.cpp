@@ -9,9 +9,10 @@
 #define VK_APPDATA_VK
 #include "appData.hpp"
 
-struct VkShader {
-      public:
-            VkShader(const std::string& vertShader, const std::string& fragShader, VkApplicationData& appData) {
+#include "importshaders.hpp"
+
+
+            VkShader::VkShader(const std::string& vertShader, const std::string& fragShader, VkApplicationData& appData) {
                   vert = readFile(vertShader);
                   rag = readFile(fragShader);
 
@@ -32,20 +33,13 @@ struct VkShader {
                   shaderStages[1].pName = "main";
             }
 
-            ~VkShader() {
+            VkShader::~VkShader() {
                   vkDestroyShaderModule(device, shaderModuleVert, nullptr);
                   vkDestroyShaderModule(device, shaderModuleFrag, nullptr);
             }
 
 
-            VkShaderModule vertShaderModule;
-            VkShaderModule fragShaderModule;
-
-            VkPipelineShaderStageCreateInfo shaderStages[2];
-
-      private:
-
-            void createShaderModule(bool fragOrVert, VkApplicationData& appData) {
+            void VkShader::createShaderModule(bool fragOrVert, VkApplicationData& appData) {
                   VkShaderModuleCreateInfo createInfo = {};
                   createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
                   createInfo.codeSize = (fragOrVert)? frag.size():vert.size();
@@ -56,7 +50,7 @@ struct VkShader {
                   }
             }
 
-            static std::vector<char> readFile(const std::string& filename) {
+            static std::vector<char> VkShader::readFile(const std::string& filename) {
                   std::ifstream file(filename, std::ios::ate | std::ios::binary);
 
                   if(!file.is_open()) {
@@ -72,9 +66,4 @@ struct VkShader {
                   return buffer;
             }
 
-            std::vector<char> vert;
-            std::vector<char> frag;
-
-            std::string vertShader;
-            std::string fragShader;
-};
+                                                                                  
