@@ -5,8 +5,8 @@
                   vert = readFile(vertShader);
                   frag = readFile(fragShader);
 
-                  this.vertShader = vertShader;
-                  this.fragShader = fragShader;
+                  this->vertShader = vertShader;
+                  this->fragShader = fragShader;
 
                   createShaderModule(true, appData);
                   createShaderModule(false, appData);
