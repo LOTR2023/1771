@@ -21,4 +21,10 @@ struct VkShader {
             VkShaderModule fragShaderModule;
 
             VkPipelineShaderStageCreateInfo shaderStages[2];
+                                                                      
+            std::vector<char> vert;
+            std::vector<char> frag;
+
+            std::string vertShader;
+            std::string fragShader;
 };
