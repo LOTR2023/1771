@@ -1,0 +1,80 @@
+#include <fstream>
+#include <iostream>
+#include <vector>
+#include <string>
+
+#define GLFW_INCLUDE_VULKAN
+#include <GLFW/glfw3.h>
+
+#define VK_APPDATA_VK
+#include "appData.hpp"
+
+struct VkShader {
+      public:
+            VkShader(const std::string& vertShader, const std::string& fragShader, VkApplicationData& appData) {
+                  vert = readFile(vertShader);
+                  rag = readFile(fragShader);
+
+                  this.vertShader = vertShader;
+                  this.fragShader = fragShader;
+
+                  createShaderModule(true, appData);
+                  createShaderModule(false, appData);
+
+                  shaderStages[0].sType = VK_SRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+                  shaderStages[0].stage = VK_SHADER_STAGE_VERTEX_BIT;
+                  shaderStages[0].module = vertShaderModule;
+                  shaderStages[0].pName = "main";
+
+                  shaderStages[1].sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+                  shaderStages[1].stage = VK_SHADER_STAGE_FRAGMENT_BIT;
+                  shaderStages[1].module = fragShaderModule;
+                  shaderStages[1].pName = "main";
+            }
+
+            ~VkShader() {
+                  vkDestroyShaderModule(device, shaderModuleVert, nullptr);
+                  vkDestroyShaderModule(device, shaderModuleFrag, nullptr);
+            }
+
+
+            VkShaderModule vertShaderModule;
+            VkShaderModule fragShaderModule;
+
+            VkPipelineShaderStageCreateInfo shaderStages[2];
+
+      private:
+
+            void createShaderModule(bool fragOrVert, VkApplicationData& appData) {
+                  VkShaderModuleCreateInfo createInfo = {};
+                  createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
+                  createInfo.codeSize = (fragOrVert)? frag.size():vert.size();
+                  createInfo.pCode = reinterpret_cast<const uint32_t>((fragOrVert)? frag.data(): vert.data();
+
+                  if(vkCreateShaderModule(appData.device, &createInfo, nullptr, (fragOrVert)? &shaderModuleFrag: &shaderModuleVert) != VK_SUCCESS) {
+                        throw std::runtime_error("failed to create shader module!");
+                  }
+            }
+
+            static std::vector<char> readFile(const std::string& filename) {
+                  std::ifstream file(filename, std::ios::ate | std::ios::binary);
+
+                  if(!file.is_open()) {
+                        throw std::runtime_error("failed to open file: %d", filename);
+                  }
+
+                  size_t fileSize = (size_t) file.tellg();
+                  std::vector<char> buffer(fileSize);
+
+                  file.seekg(0);
+                  file.read(buffer.data(), fileSize);
+
+                  return buffer;
+            }
+
+            std::vector<char> vert;
+            std::vector<char> frag;
+
+            std::string vertShader;
+            std::string fragShader;
+};

@@ -1,0 +1,8 @@
+window surface notes:
+      * Windows needs a window handle
+            (Known as HWND)
+      * Other OSs need different paramaters also
+
+Instead of writing platform specific code, such as writing preprocessor
+directives for each OS, we can just call a GLFW function that does all that for
+us.

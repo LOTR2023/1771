@@ -5,4 +5,4 @@
 #define VK_APPDATA_VK
 #include "appData.hpp"
 
-void mainLoop(VkApplicationData& appData);
+void cleanupVk(VkApplicationData& appData);

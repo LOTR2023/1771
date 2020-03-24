@@ -1,15 +1,13 @@
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 
-static const int resX = 1280, resY = 720;
+#define VK_APPDATA_VK
+#include "appData.hpp"
 
-void initWindow(char* windowName) {
-    glfwInit();
+void initWindow(VkApplicationData& appData) {
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
-    GLFWWindow* window;
-
-    window = glfwCreateWindow(resX, resY, windowName, glfwGetPrimaryDisplay(), nullptr);
+    appData.window = glfwCreateWindow(appData.resX, appData.resY, appData.appName.c_str(), nullptr, nullptr);
 
 }
