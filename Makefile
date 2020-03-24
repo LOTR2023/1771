@@ -2,7 +2,7 @@ VULKAN_SDK_PATH = /usr
 
 CFLAGS = -std=c++17 -I$(VULKAN_SDK_PATH)/include/vulkan -Isrc
 LDFLAGS = -L$(VULKAN_SDK_PATH)/lib/x86_64-linux-gnu `pkg-config --static --libs glfw3` -lvulkan
-SOURCES = main.cpp src/rndr/initvulkan.cpp src/rndr/vulkan.cpp src/rndr/cleanupvulkan.cpp src/wndw/initwin.cpp src/wndw/cleanupwin.cpp src/appData.cpp src/rndr/shaders/importshaders.cpp
+SOURCES = main.cpp src/render/initvulkan.cpp src/render/vulkan.cpp src/render/cleanupvulkan.cpp src/window/initwin.cpp src/window/cleanupwin.cpp src/appData.cpp src/render/shaders/importshaders.cpp
 
 1771_n: main.cpp
 	g++ -g $(CFLAGS) -o /bin/1771_n $(SOURCES) $(LDFLAGS)

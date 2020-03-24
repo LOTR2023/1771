@@ -2,19 +2,19 @@
 #include <GLFW/glfw3.h>
 
 #define VK_INIT_WIN
-#include "src/wndw/initwin.hpp"
+#include "src/window/initwin.hpp"
 
 #define VK_CLEANUP_WIN
-#include "src/wndw/cleanupwin.hpp"
+#include "src/window/cleanupwin.hpp"
 
 #define VK_INIT_VK
-#include "src/rndr/initvulkan.hpp"
+#include "src/render/initvulkan.hpp"
 
 #define VK_VK
-#include "src/rndr/vulkan.hpp"
+#include "src/render/vulkan.hpp"
 
 #define VK_CLEANUP_VK
-#include "src/rndr/cleanupvulkan.hpp"
+#include "src/render/cleanupvulkan.hpp"
 
 #define VK_APPDATA_VK
 #include "appData.hpp"

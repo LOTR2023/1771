@@ -4,7 +4,7 @@
 #include <vector>
 
 #define VK_IMPORT_SHADERS
-#include "rndr/shaders/importshaders.hpp"
+#include "render/shaders/importshaders.hpp"
 
 struct VkApplicationData {
 public:
