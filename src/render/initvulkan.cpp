@@ -18,7 +18,7 @@ const bool enableValidationLayers = true;
 #include "appData.hpp"
 
 #define VK_IMPORT_SHADERS
-#include "rndr/shaders/importshaders.hpp"
+#include "render/shaders/importshaders.hpp"
 
 
 const std::vector<const char*> validationLayers = {

@@ -3,7 +3,7 @@
 
             VkShader::VkShader(const std::string& vertShader, const std::string& fragShader, VkApplicationData& appData) {
                   vert = readFile(vertShader);
-                  rag = readFile(fragShader);
+                  frag = readFile(fragShader);
 
                   this.vertShader = vertShader;
                   this.fragShader = fragShader;
@@ -11,7 +11,7 @@
                   createShaderModule(true, appData);
                   createShaderModule(false, appData);
 
-                  shaderStages[0].sType = VK_SRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+                  shaderStages[0].sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
                   shaderStages[0].stage = VK_SHADER_STAGE_VERTEX_BIT;
                   shaderStages[0].module = vertShaderModule;
                   shaderStages[0].pName = "main";
@@ -23,8 +23,8 @@
             }
 
             VkShader::~VkShader() {
-                  vkDestroyShaderModule(device, shaderModuleVert, nullptr);
-                  vkDestroyShaderModule(device, shaderModuleFrag, nullptr);
+                  vkDestroyShaderModule(device, vertShaderModule, nullptr);
+                  vkDestroyShaderModule(device, fragShaderModule, nullptr);
             }
 
 
@@ -34,7 +34,7 @@
                   createInfo.codeSize = (fragOrVert)? frag.size():vert.size();
                   createInfo.pCode = reinterpret_cast<const uint32_t>((fragOrVert)? frag.data(): vert.data();
 
-                  if(vkCreateShaderModule(appData.device, &createInfo, nullptr, (fragOrVert)? &shaderModuleFrag: &shaderModuleVert) != VK_SUCCESS) {
+                  if(vkCreateShaderModule(appData.device, &createInfo, nullptr, (fragOrVert)? &fragShaderModule: &vertShaderModule) != VK_SUCCESS) {
                         throw std::runtime_error("failed to create shader module!");
                   }
             }
@@ -43,7 +43,7 @@
                   std::ifstream file(filename, std::ios::ate | std::ios::binary);
 
                   if(!file.is_open()) {
-                        throw std::runtime_error("failed to open file: %d", filename);
+                        throw std::runtime_error("failed to open file: %s", filename);
                   }
 
                   size_t fileSize = (size_t) file.tellg();
