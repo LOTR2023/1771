@@ -13,6 +13,7 @@
 #include "appData.hpp"
 
 struct VkShader {
+      public:
             VkShader(const std::string& vertShader, const std::string& fragShader, VkApplicationData& appData);
 
             ~VkShader();
@@ -27,4 +28,7 @@ struct VkShader {
 
             std::string vertShader;
             std::string fragShader;
+      private:
+            void createShaderModule(bool fragOrVert, VkApplicationData& appData);
+            static std::vector<char> readFile(const std::string& filename);
 };
