@@ -6,36 +6,13 @@
 #define VK_IMPORT_SHADERS
 #include "render/shaders/importshaders.hpp"
 
-public enum  xOrY { x, y };
+public enum  VkApplicationData::xOrY { x, y };
 
-struct VkApplicationData {
-public:
-      int determineWindowResolution(bool xOrY) {
-            glfwInit();
+// Finds window Resolution on x or y axis of display
+int VkApplicationData::determineWindowResolution(bool xOrY) {
+      glfwInit();
 
-            int xResolution, yResolution;
-            glfwGetMonitorWorkarea(glfwGetPrimaryMonitor(), nullptr, nullptr, &xResolution, &yResolution);
-            return (xOrY)? (uint32_t)xResolution * 0.6f: (int)yResolution * 0.6f;
-      }
-
-      VkDebugUtilsMessengerEXT debugMessenger;
-      const uint32_t resX = determineWindowResolution(true);
-      const uint32_t resY = determineWindowResolution(false);
-      VkSurfaceKHR surface;
-      VkQueue graphicsQueue;
-      VkQueue presentQueue;
-      VkDevice device;
-      VkSwapchainKHR swapChain;
-      std::vector<VkImage> swapChainImages;
-      VkFormat swapChainImageFormat;
-      VkExtent2D swapChainExtent;
-      std::vector<VkImageView> swapChainImageViews;
-      VkPhysicalDevice physicalDevice;
-      VkInstance instance;
-      GLFWwindow* window;
-      std::string appName = "1771";
-      std::vector<VkShader> activeShaders;
-      VkPipeline graphicsPipeline;
-      VkRenderPass renderPass;
-      VkPipelineLayout pipelineLayout;
-};
+      int xResolution, yResolution;
+      glfwGetMonitorWorkarea(glfwGetPrimaryMonitor(), nullptr, nullptr, &xResolution, &yResolution);
+      return (xOrY)? (uint32_t)xResolution * 0.6f: (int)yResolution * 0.6f;
+}
