@@ -6,6 +6,8 @@
 #define VK_IMPORT_SHADERS
 #include "render/shaders/importshaders.hpp"
 
+public enum  xOrY { x, y };
+
 struct VkApplicationData {
 public:
       int determineWindowResolution(bool xOrY) {
