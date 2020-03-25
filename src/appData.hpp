@@ -13,6 +13,7 @@ public:
       int determineWindowResolution(bool xOrY);
 
       VkDebugUtilsMessengerEXT debugMessenger;
+      
       // Holds X and Y resolution
       auto resolution = determineWindowResolution();
       VkSurfaceKHR surface;

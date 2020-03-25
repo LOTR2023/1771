@@ -6,8 +6,6 @@
 #define VK_IMPORT_SHADERS
 #include "render/shaders/importshaders.hpp"
 
-public enum  VkApplicationData::xOrY { x, y };
-
 // Finds window Resolution on x or y axis of display
 std::tuple<uint32_t, uint32_t> VkApplicationData::determineWindowResolution(bool xOrY) {
       glfwInit();
