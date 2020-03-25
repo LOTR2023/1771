@@ -13,8 +13,8 @@ public:
       int determineWindowResolution(bool xOrY);
 
       VkDebugUtilsMessengerEXT debugMessenger;
-      const uint32_t resX = determineWindowResolution(true);
-      const uint32_t resY = determineWindowResolution(false);
+      // Holds X and Y resolution
+      auto resolution = determineWindowResolution();
       VkSurfaceKHR surface;
       VkQueue graphicsQueue;
       VkQueue presentQueue;

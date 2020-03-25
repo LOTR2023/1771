@@ -9,10 +9,10 @@
 public enum  VkApplicationData::xOrY { x, y };
 
 // Finds window Resolution on x or y axis of display
-int VkApplicationData::determineWindowResolution(bool xOrY) {
+std::tuple<uint32_t, uint32_t> VkApplicationData::determineWindowResolution(bool xOrY) {
       glfwInit();
 
       int xResolution, yResolution;
       glfwGetMonitorWorkarea(glfwGetPrimaryMonitor(), nullptr, nullptr, &xResolution, &yResolution);
-      return (xOrY)? (uint32_t)xResolution * 0.6f: (int)yResolution * 0.6f;
+      return std::make_tuple(xResolution, yResolution);
 }
