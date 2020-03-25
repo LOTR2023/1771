@@ -10,12 +10,13 @@
 
 struct VkApplicationData {
 public:
-      int determineWindowResolution(bool xOrY);
+      std::tuple<uint32_t, uint32_t> determineWindowResolution();
 
       VkDebugUtilsMessengerEXT debugMessenger;
-      
+
       // Holds X and Y resolution
       auto resolution = determineWindowResolution();
+      uint32_t xResolution = std::get<0>(resolution), yResolution = std::get<1>(resolution);
       VkSurfaceKHR surface;
       VkQueue graphicsQueue;
       VkQueue presentQueue;
