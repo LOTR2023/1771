@@ -16,9 +16,6 @@
 #define VK_CLEANUP_VK
 #include "src/render/cleanupvulkan.hpp"
 
-#define VK_APPDATA_VK
-#include "appData.hpp"
-
 #include <iostream>
 #include <vector>
 

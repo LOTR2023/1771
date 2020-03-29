@@ -65,7 +65,7 @@ struct SwapChainSupportDetails {
 
 
 bool checkDeviceExtensionSupport(VkPhysicalDevice device);
-SwapChainSupportDetails querySwapChainSupport(VkPhysicalDevice device, VkSurfaceKHR surface);
+SwapChainSupportDetails querySwapChainSupport(VkPhysicalDevice& device, VkSurfaceKHR& surface);
 
 QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device) {
       QueueFamilyIndices indices;
@@ -434,7 +434,7 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
 
             VkSurfaceFormatKHR surfaceFormat = chooseSwapSurfaceFormat(swapChainSupport.formats);
             VkPresentModeKHR presentMode = chooseSwapPresentMode(swapChainSupport.presentModes);
-            VkExtent2D extent = chooseSwapExtent(swapChainSupport.capabilities, appData.resX, appData.resY);
+            VkExtent2D extent = chooseSwapExtent(swapChainSupport.capabilities, appData.xResolution, appData.yResolution);
 
             uint32_t imageCount = swapChainSupport.capabilities.minImageCount + 1;
 
@@ -554,7 +554,7 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
       }
 
       VkPipeline createGraphicsPipeline(VkApplicationData& appData) {
-            appData.activeShaders.push_back(VkShader(defaultVertShader, defaultFragShader, appData));
+            appData.activeShaders.push_back(VkShader(defaultVertShader, defaultFragShader, appData.device));
 
             VkPipelineVertexInputStateCreateInfo vertexInputInfo = {};
             vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
@@ -619,6 +619,17 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
             colorBlendAttachment.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO; // Optional
             colorBlendAttachment.alphaBlendOp = VK_BLEND_OP_ADD; // Optional
 
+            VkPipelineColorBlendStateCreateInfo colorBlending = {};
+            colorBlending.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
+            colorBlending.logicOpEnable = VK_FALSE;
+            colorBlending.logicOp = VK_LOGIC_OP_COPY; // Optional
+            colorBlending.attachmentCount = 1;
+            colorBlending.pAttachments = &colorBlendAttachment;
+            colorBlending.blendConstants[0] = 0.0f; // Optional
+            colorBlending.blendConstants[1] = 0.0f; // Optional
+            colorBlending.blendConstants[2] = 0.0f; // Optional
+            colorBlending.blendConstants[3] = 0.0f; // Optional
+
             VkPipelineLayoutCreateInfo pipelineLayoutInfo = {};
             pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
             pipelineLayoutInfo.setLayoutCount = 0; // Optional
@@ -642,7 +653,7 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
             pipelineInfo.pDepthStencilState = nullptr; // Optional
             pipelineInfo.pColorBlendState = &colorBlending;
             pipelineInfo.pDynamicState = nullptr; // Optional
-            pipelineInfo.layout = pipelineLayout;
+            pipelineInfo.layout = appData.pipelineLayout;
             pipelineInfo.renderPass = appData.renderPass;
             pipelineInfo.subpass = 0;
             pipelineInfo.basePipelineHandle = VK_NULL_HANDLE; // Optional

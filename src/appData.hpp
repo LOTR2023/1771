@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <vector>
+#include <tuple>
 
 #define VK_IMPORT_SHADERS
 #include "render/shaders/importshaders.hpp"
@@ -15,7 +16,7 @@ public:
       VkDebugUtilsMessengerEXT debugMessenger;
 
       // Holds X and Y resolution
-      auto resolution = determineWindowResolution();
+      std::tuple<uint32_t, uint32_t> resolution = determineWindowResolution();
       uint32_t xResolution = std::get<0>(resolution), yResolution = std::get<1>(resolution);
       VkSurfaceKHR surface;
       VkQueue graphicsQueue;

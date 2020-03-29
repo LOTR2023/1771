@@ -1,15 +1,20 @@
 #include "importshaders.hpp"
 
 
-            VkShader::VkShader(const std::string& vertShader, const std::string& fragShader, VkApplicationData& appData) {
+#define VK_APPDATA_VK
+#include "appData.hpp"
+
+
+            VkShader::VkShader(const std::string& vertShader, const std::string& fragShader, VkDevice& device) {
                   vert = readFile(vertShader);
                   frag = readFile(fragShader);
 
                   this->vertShader = vertShader;
                   this->fragShader = fragShader;
+                  this->device = device;
 
-                  createShaderModule(true, appData);
-                  createShaderModule(false, appData);
+                  createShaderModule(true, device);
+                  createShaderModule(false, device);
 
                   shaderStages[0].sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
                   shaderStages[0].stage = VK_SHADER_STAGE_VERTEX_BIT;
@@ -28,22 +33,26 @@
             }
 
 
-            void VkShader::createShaderModule(bool fragOrVert, VkApplicationData& appData) {
+            void VkShader::createShaderModule(bool fragOrVert, VkDevice& device) {
                   VkShaderModuleCreateInfo createInfo = {};
                   createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
                   createInfo.codeSize = (fragOrVert)? frag.size():vert.size();
-                  createInfo.pCode = reinterpret_cast<const uint32_t>((fragOrVert)? frag.data(): vert.data();
-
-                  if(vkCreateShaderModule(appData.device, &createInfo, nullptr, (fragOrVert)? &fragShaderModule: &vertShaderModule) != VK_SUCCESS) {
+                  if(fragOrVert) {
+                  createInfo.pCode = reinterpret_cast<const uint32_t*>(frag.data());
+                  } else {
+                  createInfo.pCode = reinterpret_cast<const uint32_t*>(vert.data());
+                  }
+                  if(vkCreateShaderModule(device, &createInfo, nullptr, (fragOrVert)? &fragShaderModule: &vertShaderModule) != VK_SUCCESS) {
                         throw std::runtime_error("failed to create shader module!");
                   }
             }
 
-            static std::vector<char> VkShader::readFile(const std::string& filename) {
+            std::vector<char> VkShader::readFile(const std::string& filename) {
                   std::ifstream file(filename, std::ios::ate | std::ios::binary);
 
                   if(!file.is_open()) {
-                        throw std::runtime_error("failed to open file: %s", filename.c_str());
+                        std::cout << "failed to open file: " << filename << std::endl;
+                        throw std::exception();
                   }
 
                   size_t fileSize = (size_t) file.tellg();

@@ -8,6 +8,6 @@ void initWindow(VkApplicationData& appData) {
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
-    appData.window = glfwCreateWindow(appData.resX, appData.resY, appData.appName.c_str(), nullptr, nullptr);
+    appData.window = glfwCreateWindow(appData.xResolution, appData.yResolution, appData.appName.c_str(), nullptr, nullptr);
 
 }
