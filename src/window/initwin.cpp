@@ -6,8 +6,9 @@
 
 void initWindow(VkApplicationData& appData) {
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 
     appData.window = glfwCreateWindow(appData.xResolution, appData.yResolution, appData.appName.c_str(), nullptr, nullptr);
-
+    glfwSetWindowUserPointer(appData.window, &appData);
+    glfwSetFramebufferSizeCallback(appData.window, appData.framebufferResizeCallback);
 }

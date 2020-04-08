@@ -3,36 +3,55 @@
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 #include <iostream>
-#include <vector>
+#include <string>
 #include <tuple>
+#include <vector>
 
 #define VK_IMPORT_SHADERS
 #include "render/shaders/importshaders.hpp"
 
-struct VkApplicationData {
+#define OBJECT
+#include "render/object/mesh.hpp"
+
+class VkShader;
+struct Vertex;
+
+class VkApplicationData {
 public:
-      std::tuple<uint32_t, uint32_t> determineWindowResolution();
+  std::tuple<uint32_t, uint32_t> determineWindowResolution();
 
-      VkDebugUtilsMessengerEXT debugMessenger;
+  static void framebufferResizeCallback(GLFWwindow *window, int width,
+                                        int height);
 
-      // Holds X and Y resolution
-      std::tuple<uint32_t, uint32_t> resolution = determineWindowResolution();
-      uint32_t xResolution = std::get<0>(resolution), yResolution = std::get<1>(resolution);
-      VkSurfaceKHR surface;
-      VkQueue graphicsQueue;
-      VkQueue presentQueue;
-      VkDevice device;
-      VkSwapchainKHR swapChain;
-      std::vector<VkImage> swapChainImages;
-      VkFormat swapChainImageFormat;
-      VkExtent2D swapChainExtent;
-      std::vector<VkImageView> swapChainImageViews;
-      VkPhysicalDevice physicalDevice;
-      VkInstance instance;
-      GLFWwindow* window;
-      std::string appName = "1771";
-      std::vector<VkShader> activeShaders;
-      VkPipeline graphicsPipeline;
-      VkRenderPass renderPass;
-      VkPipelineLayout pipelineLayout;
+  VkDebugUtilsMessengerEXT debugMessenger;
+
+  // Holds X and Y resolution
+  std::tuple<uint32_t, uint32_t> resolution = determineWindowResolution();
+  uint32_t xResolution = std::get<0>(resolution),
+           yResolution = std::get<1>(resolution);
+  VkSurfaceKHR surface;
+  VkQueue graphicsQueue;
+  VkQueue presentQueue;
+  VkDevice device;
+  VkSwapchainKHR swapChain;
+  std::vector<VkImage> swapChainImages;
+  VkFormat swapChainImageFormat;
+  VkExtent2D swapChainExtent;
+  std::vector<VkImageView> swapChainImageViews;
+  VkPhysicalDevice physicalDevice;
+  VkInstance instance;
+  GLFWwindow *window;
+  std::string appName = "1771";
+  std::vector<VkShader> activeShaders;
+  VkPipeline graphicsPipeline;
+  VkRenderPass renderPass;
+  VkPipelineLayout pipelineLayout;
+  std::vector<VkFramebuffer> swapChainFramebuffers;
+  VkCommandPool commandPool;
+  VkBuffer vertexBuffer;
+  VkDeviceMemory vertexBufferMemory;
+  VkBuffer indexBuffer;
+  VkDeviceMemory indexBufferMemory;
+  std::vector<VkCommandBuffer> commandBuffers;
+  bool framebufferResized;
 };

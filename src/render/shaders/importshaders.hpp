@@ -14,14 +14,18 @@
 
 class VkShader {
       public:
-            VkShader(const std::string& vertShader, const std::string& fragShader, VkDevice& device);
+            VkShader(const std::string& vertShader, const std::string& fragShader, VkDevice device);
+            void createShaderModules();
 
-            ~VkShader();
+            // ~VkShader();
 
             VkShaderModule vertShaderModule;
             VkShaderModule fragShaderModule;
 
             VkDevice device;
+
+            VkPipelineShaderStageCreateInfo shaderStagesVert;
+            VkPipelineShaderStageCreateInfo shaderStagesFrag;
 
             VkPipelineShaderStageCreateInfo shaderStages[2];
 
@@ -31,6 +35,6 @@ class VkShader {
             std::string vertShader;
             std::string fragShader;
       private:
-            void createShaderModule(bool fragOrVert, VkDevice& device);
+            VkShaderModule createShaderModule(const std::vector<char>& code, VkDevice device);
             static std::vector<char> readFile(const std::string& filename);
 };
