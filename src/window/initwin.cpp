@@ -10,5 +10,6 @@ void initWindow(VkApplicationData& appData) {
 
     appData.window = glfwCreateWindow(appData.xResolution, appData.yResolution, appData.appName.c_str(), nullptr, nullptr);
     glfwSetWindowUserPointer(appData.window, &appData);
+    glfwSetWindowSizeLimits(appData.window, 480, 320, GLFW_DONT_CARE, GLFW_DONT_CARE);
     glfwSetFramebufferSizeCallback(appData.window, appData.framebufferResizeCallback);
 }

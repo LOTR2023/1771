@@ -35,7 +35,7 @@ private:
   VkApplicationData appData;
 };
 
-int main() {
+int main(int argc, char* argv[]) {
   VkApplication app;
 
   try {
