@@ -1,7 +1,7 @@
 VULKAN_SDK_PATH = /usr
 
 CFLAGS = -std=c++17 -I$(VULKAN_SDK_PATH)/include -Isrc
-LDFLAGS = -lglfw3 -lvulkan -ldl -lpthread6
+LDFLAGS = -lglfw3 -lvulkan -ldl -lpthread
 SOURCES = main.cpp src/render/vulkan/initvulkan.cpp src/render/vulkan/vulkan.cpp src/render/vulkan/cleanupvulkan.cpp src/window/initwin.cpp src/window/cleanupwin.cpp src/appData.cpp src/render/shaders/importshaders.cpp src/render/object/mesh.cpp
 
 1771: main.cpp
