@@ -963,7 +963,7 @@ void startCommandBuffersAndRenderPasses(VkApplicationData &appData) {
     renderPassInfo.renderArea.offset = {0, 0};
     renderPassInfo.renderArea.extent = appData.swapChainExtent;
 
-    VkClearValue clearColor = {1, 1, 1, 1};
+    VkClearValue clearColor = {0.5f, 0.7f, 1.0f, 1.0f};
     renderPassInfo.clearValueCount = 1;
     renderPassInfo.pClearValues = &clearColor;
 
@@ -995,7 +995,7 @@ void startCommandBuffersAndRenderPasses(VkApplicationData &appData) {
     scissor.extent = appData.swapChainExtent;
     vkCmdSetScissor(appData.commandBuffers[i], 0, 1, &scissor);
 
-    vkCmdDrawIndexed(appData.commandBuffers[i], indices.size(), 1, 0, 0, 1);
+    vkCmdDrawIndexed(appData.commandBuffers[i], indices.size(), 1, 0, 0, 0);
 
     vkCmdEndRenderPass(appData.commandBuffers[i]);
 
